@@ -1,6 +1,6 @@
-import type { Post } from '@/payload-types'
+import type { Stay } from '@/payload-types'
 
-export const post1: Partial<Post> = {
+export const stay1: Partial<Stay> = {
   slug: 'digital-horizons',
   _status: 'published',
   // @ts-ignore
@@ -299,6 +299,6 @@ export const post1: Partial<Post> = {
     image: '{{IMAGE_1}}',
     title: 'Digital Horizons: A Glimpse into Tomorrow',
   },
-  relatedPosts: [], // this is populated by the seed script
+  relatedStays: [],
   title: 'Digital Horizons: A Glimpse into Tomorrow',
 }

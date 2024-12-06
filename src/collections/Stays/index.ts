@@ -16,7 +16,7 @@ import { Code } from '../../blocks/Code/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
-import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
+import { revalidateDelete, revalidateStay } from './hooks/revalidateStay'
 
 import {
   MetaDescriptionField,
@@ -28,8 +28,8 @@ import {
 import { slugField } from '@/fields/slug'
 import { getServerSideURL } from '@/utilities/getURL'
 
-export const Posts: CollectionConfig<'posts'> = {
-  slug: 'posts',
+export const Stays: CollectionConfig<'stays'> = {
+  slug: 'stays',
   access: {
     create: authenticated,
     delete: authenticated,
@@ -54,7 +54,7 @@ export const Posts: CollectionConfig<'posts'> = {
       url: ({ data }) => {
         const path = generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
-          collection: 'posts',
+          collection: 'stays',
         })
 
         return `${getServerSideURL()}${path}`
@@ -63,7 +63,7 @@ export const Posts: CollectionConfig<'posts'> = {
     preview: (data) => {
       const path = generatePreviewPath({
         slug: typeof data?.slug === 'string' ? data.slug : '',
-        collection: 'posts',
+        collection: 'stays',
       })
 
       return `${getServerSideURL()}${path}`
@@ -105,7 +105,7 @@ export const Posts: CollectionConfig<'posts'> = {
         {
           fields: [
             {
-              name: 'relatedPosts',
+              name: 'relatedStays',
               type: 'relationship',
               admin: {
                 position: 'sidebar',
@@ -118,7 +118,7 @@ export const Posts: CollectionConfig<'posts'> = {
                 }
               },
               hasMany: true,
-              relationTo: 'posts',
+              relationTo: 'stays',
             },
             {
               name: 'categories',
@@ -217,7 +217,7 @@ export const Posts: CollectionConfig<'posts'> = {
     ...slugField(),
   ],
   hooks: {
-    afterChange: [revalidatePost],
+    afterChange: [revalidateStay],
     afterRead: [populateAuthors],
     afterDelete: [revalidateDelete],
   },

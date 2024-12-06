@@ -5,15 +5,15 @@ import { contact as contactPageData } from './contact-page'
 import { home } from './home'
 import { image1 } from './image-1'
 import { image2 } from './image-2'
-import { post1 } from './post-1'
-import { post2 } from './post-2'
-import { post3 } from './post-3'
+import { stay1 } from './stay-1'
+import { stay2 } from './stay-2'
+import { stay3 } from './stay-3'
 
 const collections: CollectionSlug[] = [
   'categories',
   'media',
   'pages',
-  'posts',
+  'stays',
   'forms',
   'form-submissions',
   'search',
@@ -182,60 +182,60 @@ export const seed = async ({
     demoAuthorID = `"${demoAuthorID}"`
   }
 
-  payload.logger.info(`— Seeding posts...`)
+  payload.logger.info(`— Seeding stays...`)
 
-  // Do not create posts with `Promise.all` because we want the posts to be created in order
+  // Do not create stays with `Promise.all` because we want the stays to be created in order
   // This way we can sort them by `createdAt` or `publishedAt` and they will be in the expected order
-  const post1Doc = await payload.create({
-    collection: 'posts',
+  const stay1Doc = await payload.create({
+    collection: 'stays',
     data: JSON.parse(
-      JSON.stringify({ ...post1, categories: [technologyCategory.id] })
+      JSON.stringify({ ...stay1, categories: [technologyCategory.id] })
         .replace(/"\{\{IMAGE_1\}\}"/g, String(image1ID))
         .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID))
         .replace(/"\{\{AUTHOR\}\}"/g, String(demoAuthorID)),
     ),
   })
 
-  const post2Doc = await payload.create({
-    collection: 'posts',
+  const stay2Doc = await payload.create({
+    collection: 'stays',
     data: JSON.parse(
-      JSON.stringify({ ...post2, categories: [newsCategory.id] })
+      JSON.stringify({ ...stay2, categories: [newsCategory.id] })
         .replace(/"\{\{IMAGE_1\}\}"/g, String(image2ID))
         .replace(/"\{\{IMAGE_2\}\}"/g, String(image3ID))
         .replace(/"\{\{AUTHOR\}\}"/g, String(demoAuthorID)),
     ),
   })
 
-  const post3Doc = await payload.create({
-    collection: 'posts',
+  const stay3Doc = await payload.create({
+    collection: 'stays',
     data: JSON.parse(
-      JSON.stringify({ ...post3, categories: [financeCategory.id] })
+      JSON.stringify({ ...stay3, categories: [financeCategory.id] })
         .replace(/"\{\{IMAGE_1\}\}"/g, String(image3ID))
         .replace(/"\{\{IMAGE_2\}\}"/g, String(image1ID))
         .replace(/"\{\{AUTHOR\}\}"/g, String(demoAuthorID)),
     ),
   })
 
-  // update each post with related posts
+  // update each stay with related stays
   await payload.update({
-    id: post1Doc.id,
-    collection: 'posts',
+    id: stay1Doc.id,
+    collection: 'stays',
     data: {
-      relatedPosts: [post2Doc.id, post3Doc.id],
+      relatedStays: [stay2Doc.id, stay3Doc.id],
     },
   })
   await payload.update({
-    id: post2Doc.id,
-    collection: 'posts',
+    id: stay2Doc.id,
+    collection: 'stays',
     data: {
-      relatedPosts: [post1Doc.id, post3Doc.id],
+      relatedStays: [stay1Doc.id, stay3Doc.id],
     },
   })
   await payload.update({
-    id: post3Doc.id,
-    collection: 'posts',
+    id: stay3Doc.id,
+    collection: 'stays',
     data: {
-      relatedPosts: [post1Doc.id, post2Doc.id],
+      relatedStays: [stay1Doc.id, stay2Doc.id],
     },
   })
 
@@ -281,8 +281,8 @@ export const seed = async ({
         {
           link: {
             type: 'custom',
-            label: 'Posts',
-            url: '/posts',
+            label: 'Stays',
+            url: '/stays',
           },
         },
         {

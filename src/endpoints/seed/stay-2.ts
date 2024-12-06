@@ -1,6 +1,6 @@
-import type { Post } from '@/payload-types'
+import type { Stay } from '@/payload-types'
 
-export const post2: Partial<Post> = {
+export const stay2: Partial<Stay> = {
   slug: 'global-gaze',
   _status: 'published',
   // @ts-ignore
@@ -221,6 +221,6 @@ export const post2: Partial<Post> = {
     image: '{{IMAGE_1}}',
     title: 'Global Gaze: Beyond the Headlines',
   },
-  relatedPosts: [], // this is populated by the seed script
+  relatedStays: [],
   title: 'Global Gaze: Beyond the Headlines',
 }
